@@ -1,21 +1,88 @@
-{% extends "layout.html" %} {% block title %}Home{% endblock %} {% block content
-    %}
-    <h1 align="center">Notes</h1>
-    <ul class="list-group list-group-flush" id="notes">
-      {% for note in user.notes %}
-      <li class="list-group-item">
-        {{ note.data }}
-        <button type="button" class="close" onClick="deleteNote({{ note.id }})">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </li>
-      {% endfor %}
-    </ul>
-    <form method="POST">
-      <textarea name="note" id="note" class="form-control"></textarea>
-      <br />
-      <div align="center">
-        <button type="submit" class="btn btn-primary">Add Note</button>
-      </div>
-    </form>
-    {% endblock %}
+{% extends "layout_login.html" %} {% block content %}
+<div class="d-flex flex-column">
+  <br />
+  <div>
+    <h4>City Name: {{current_weather.city_name}}</h4>
+    <h4>Date: {{current_weather.current_date_time}}</h4>
+    <h4>Morning Temperature: {{current_weather.morning_temp}} °C</h4>
+    <h4>Night Temperature: {{current_weather.night_temp}} °C</h4>
+  </div>
+
+  <form method="POST" class="mt-2">
+    <div class="form-group">
+      <label for="city">City Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="city-name"
+        name="city-name"
+        placeholder="Enter city name"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Predict Weather</button>
+  </form>
+  <br />
+
+  {% if weather_prediction %}
+  <div>
+    <div class="container">
+      <h3>City Name: {{weather_prediction.location.name}}</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Weather Prediction</th>
+            <th scope="col">Weather Icon</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{weather_prediction.forecast.forecastday[0].date}}</td>
+            <td>
+              {{weather_prediction.forecast.forecastday[0].day.condition.text}}
+            </td>
+            <td>
+              <img
+                src="{{weather_prediction.forecast.forecastday[0].day.condition.icon}}"
+                alt=""
+                width="50"
+                height="50"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>{{weather_prediction.forecast.forecastday[1].date}}</td>
+            <td>
+              {{weather_prediction.forecast.forecastday[1].day.condition.text}}
+            </td>
+            <td>
+              <img
+                src="{{weather_prediction.forecast.forecastday[1].day.condition.icon}}"
+                alt=""
+                width="50"
+                height="50"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>{{weather_prediction.forecast.forecastday[2].date}}</td>
+            <td>
+              {{weather_prediction.forecast.forecastday[2].day.condition.text}}
+            </td>
+            <td>
+              <img
+                src="{{weather_prediction.forecast.forecastday[2].day.condition.icon}}"
+                alt=""
+                width="50"
+                height="50"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}

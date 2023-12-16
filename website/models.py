@@ -1,7 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from sqlalchemy.sql import func
-from sqlalchemy.orm import composite
 
 db = SQLAlchemy()
 

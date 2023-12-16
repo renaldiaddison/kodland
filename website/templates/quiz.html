@@ -1,0 +1,45 @@
+{% extends "layout.html" %} {% block content %}
+<div class="d-flex flex-column mt-4 mb-4">
+  <h3>{{user.username}}'s Scoreboard</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Highscore</th>
+        <th scope="col">Date Achieved</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for score in scores %}
+      <tr>
+        <td>{{score.score}}</td>
+        <td>{{score.date}}</td>
+      </tr>
+      {%endfor%}
+    </tbody>
+  </table>
+  <h2>Quiz</h2>
+  <form method="POST">
+    {% for question in questions %}
+    <div class="mt-2 mb-4">
+      <h3 name="question{{question.id}}">{{question.question}}</h3>
+      {% for choice in question.choices %}
+      <div class="form-check mb-2">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="choiceRadio{{question.id}}"
+          id="{{choice.id}}"
+          value="{{choice.id}}"
+        />
+        <label class="form-check-label" for="{{choice.id}}">
+          {{choice.choice}}
+        </label>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor%}
+    <button type="submit" class="btn btn-primary w-100">Submit Quiz</button>
+  </form>
+</div>
+
+{% endblock %}

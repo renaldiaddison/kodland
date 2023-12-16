@@ -1,0 +1,23 @@
+{% extends "layout.html" %} {% block content %}
+<div class="d-flex flex-column mt-4 mb-4">
+  <h3>Leaderboard</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Username</th>
+        <th scope="col">Highscore</th>
+        <th scope="col">Date Achieved</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for high_score in high_scores %}
+      <tr>
+        <td>{{high_score.username}}</td>
+        <td>{{high_score.score}}</td>
+        <td>{{high_score.date}}</td>
+      </tr>
+      {%endfor%}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
